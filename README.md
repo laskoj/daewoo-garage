@@ -1,8 +1,23 @@
-# Welcome to your Expo app 👋
+Daewoo Garage
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplikacja mobilna w React Native (Expo) prezentująca modele samochodów marki Daewoo.
 
-## Get started
+
+- Lista modeli aut
+- Wyszukiwarka
+- Dodawanie do ulubionych
+- Szczegóły auta
+
+
+- React Native (Expo)
+- Redux Toolkit
+- Expo Router
+- AsyncStorage
+
+
+```bash
+npm install
+npx expo start
 
 1. Install dependencies
 
