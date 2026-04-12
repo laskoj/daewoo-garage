@@ -42,6 +42,7 @@ export default function Home() {
         }}
       />
 
+
       <FlatList
         data={filteredCars}
         keyExtractor={(item: any) => item.id}
