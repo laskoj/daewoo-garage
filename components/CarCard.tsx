@@ -7,43 +7,37 @@ import {
   View,
 } from 'react-native';
 
-type Props = {
-  car: {
-    id: string;
-    name: string;
-    year: number;
-    engine: string;
-    power: string;
-    image: string;
-  };
+import { Car } from '../constants/cars';
 
+type Props = {
+  car: Car;
+  isFavorite: boolean;
   onFavorite: () => void;
 };
 
-function CarCard({ car, onFavorite }: Props) {
+function CarCard({ car, isFavorite, onFavorite }: Props) {
   return (
     <View style={styles.card}>
-      <Image
-        source={{ uri: car.image }}
-        style={styles.image}
-        resizeMode="cover"
-      />
+      <Image source={car.image} style={styles.image} resizeMode="cover" />
 
       <View style={styles.content}>
-        <Text style={styles.title}>
-          {car.name}
-        </Text>
+        <Text style={styles.title}>{car.name}</Text>
 
         <Text style={styles.subtitle}>
           {car.year} • {car.engine} • {car.power}
         </Text>
 
+        <Text style={styles.description}>{car.description}</Text>
+
         <Pressable
-          style={styles.button}
+          style={[
+            styles.button,
+            isFavorite && styles.favoriteButton,
+          ]}
           onPress={onFavorite}
         >
           <Text style={styles.buttonText}>
-            Dodaj do ulubionych
+            {isFavorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
           </Text>
         </Pressable>
       </View>
@@ -56,15 +50,16 @@ export default React.memo(CarCard);
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
-    borderRadius: 20,
+    borderRadius: 18,
     overflow: 'hidden',
-    marginBottom: 16,
-    elevation: 3,
+    marginBottom: 18,
+    elevation: 4,
   },
 
   image: {
     width: '100%',
     height: 220,
+    backgroundColor: '#d1d5db',
   },
 
   content: {
@@ -73,24 +68,34 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 24,
-    fontWeight: '700',
-    marginBottom: 6,
+    fontWeight: '800',
+    color: '#111827',
   },
 
   subtitle: {
-    color: '#666',
-    marginBottom: 16,
+    marginTop: 6,
+    color: '#6b7280',
+  },
+
+  description: {
+    marginTop: 10,
+    color: '#374151',
   },
 
   button: {
+    marginTop: 16,
     backgroundColor: '#2563eb',
-    padding: 12,
+    padding: 14,
     borderRadius: 12,
     alignItems: 'center',
   },
 
+  favoriteButton: {
+    backgroundColor: '#dc2626',
+  },
+
   buttonText: {
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: '700',
   },
 });

@@ -1,17 +1,51 @@
-import { View, Text } from 'react-native';
-import { useSelector } from 'react-redux';
-import { RootState } from '../src/store/store';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
-export default function Favorites() {
-  const { cars, favorites } = useSelector((state: RootState) => state.cars);
+import { useGarageStore } from '../src/store/garageStore';
 
-  const favCars = cars.filter((c: any) => favorites.includes(c.id));
+export default function FavoritesScreen() {
+  const favorites =
+    useGarageStore(
+      (state) => state.favorites
+    );
 
   return (
-    <View>
-      {favCars.map((car: any) => (
-        <Text key={car.id}>{car.name}</Text>
-      ))}
+    <View style={styles.container}>
+      <FlatList
+        data={favorites}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <Text style={styles.title}>
+              {item.name}
+            </Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#f3f4f6',
+  },
+
+  card: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 20,
+    marginBottom: 16,
+  },
+
+  title: {
+    fontSize: 22,
+    fontWeight: '700',
+  },
+});

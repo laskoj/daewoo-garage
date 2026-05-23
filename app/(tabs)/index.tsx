@@ -1,99 +1,116 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import {
+    FlatList,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
+    useWindowDimensions,
+} from 'react-native';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
-import { View, Text, FlatList, Button, ActivityIndicator } from 'react-native';
+import { useMemo, useState } from 'react';
+
+import CarCard from '../../components/CarCard';
+import { cars } from '../../constants/cars';
+import { useGarageStore } from '../../src/store/garageStore';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const [search, setSearch] = useState('');
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const { width } = useWindowDimensions();
+  const isTablet = width > 700;
+
+  const favorites = useGarageStore((state) => state.favorites);
+  const addFavorite = useGarageStore((state) => state.addFavorite);
+  const removeFavorite = useGarageStore((state) => state.removeFavorite);
+
+  const filteredCars = useMemo(() => {
+    return cars.filter((car) =>
+      car.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search]);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Modele Daewoo</Text>
+
+      <TextInput
+        placeholder="Szukaj auta..."
+        value={search}
+        onChangeText={setSearch}
+        style={styles.search}
+      />
+
+      <FlatList
+        data={filteredCars}
+        key={isTablet ? 'tablet' : 'phone'}
+        numColumns={isTablet ? 2 : 1}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.list}
+        ListEmptyComponent={
+          <Text style={styles.empty}>Nie znaleziono auta.</Text>
+        }
+        renderItem={({ item }) => {
+          const isFavorite = favorites.some((car) => car.id === item.id);
+
+          return (
+            <View style={styles.item}>
+              <CarCard
+                car={item}
+                isFavorite={isFavorite}
+                onFavorite={() => {
+                  if (isFavorite) {
+                    removeFavorite(item.id);
+                  } else {
+                    addFavorite({
+                      id: item.id,
+                      name: item.name,
+                    });
+                  }
+                }}
+              />
+            </View>
+          );
+        }}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: '#f3f4f6',
+    padding: 16,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+
+  header: {
+    fontSize: 24,
+    fontWeight: '800',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#111827',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+
+  search: {
+    backgroundColor: '#fff',
+    padding: 14,
+    borderRadius: 14,
+    marginBottom: 16,
+  },
+
+  list: {
+    paddingBottom: 24,
+  },
+
+  item: {
+    flex: 1,
+    marginHorizontal: 6,
+  },
+
+  empty: {
+    textAlign: 'center',
+    marginTop: 40,
+    color: '#6b7280',
   },
 });

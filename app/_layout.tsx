@@ -1,11 +1,14 @@
 import { Stack } from 'expo-router';
-import { Provider } from 'react-redux';
-import { store } from '../src/store/store';
+import { useEffect } from 'react';
 
-export default function Layout() {
-  return (
-    <Provider store={store}>
-      <Stack />
-    </Provider>
-  );
+import { useGarageStore } from '../src/store/garageStore';
+
+export default function RootLayout() {
+  const loadFavorites = useGarageStore((state) => state.loadFavorites);
+
+  useEffect(() => {
+    loadFavorites();
+  }, []);
+
+  return <Stack />;
 }

@@ -1,65 +1,68 @@
-Daewoo Garage
+# Daewoo Garage
 
-Aplikacja mobilna w React Native (Expo) prezentująca modele samochodów marki Daewoo.
+Aplikacja mobilna w Expo / React Native związana z garażem i modelami Daewoo.
 
+## Funkcje
 
-- Lista modeli aut
-- Wyszukiwarka
-- Dodawanie do ulubionych
-- Szczegóły auta
+- katalog modeli Daewoo,
+- wyszukiwarka modeli,
+- ekran szczegółów auta z parametrem trasy `/car/[id]`,
+- ulubione auta zapisywane globalnie przez Zustand,
+- zapis danych w AsyncStorage,
+- dodawanie zdjęcia auta z galerii przez Expo Image Picker,
+- responsywny układ listy przez `useWindowDimensions`,
+- FlatList zamiast ScrollView dla listy aut,
+- podstawowe testy logiki.
 
+## Technologie
 
-- React Native (Expo)
-- Redux Toolkit
+- React Native
+- Expo
 - Expo Router
+- TypeScript
+- Zustand
 - AsyncStorage
+- Expo Image Picker
+- Jest
 
+## Instalacja
 
 ```bash
 npm install
-npx expo start
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Uruchomienie
 
-## Learn more
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+W przeglądarce:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start --web
+```
 
-## Join the community
+## Testy
 
-Join our community of developers creating universal apps.
+```bash
+npm test
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Build APK przez EAS
+
+```bash
+npm install -g eas-cli
+eas login
+eas build --platform android --profile preview
+```
+
+## Co pokazuje projekt względem wymagań
+
+- Architektura: podział na `app`, `components`, `constants`, `src/store`, `src/utils`.
+- Stan globalny: Zustand.
+- Offline/persist: AsyncStorage.
+- Funkcje natywne: galeria zdjęć przez Image Picker.
+- Nawigacja: tabs + stack + dynamic route.
+- UI/UX: spójne karty, kolory i spacing.
+- Responsywność: `useWindowDimensions` i liczba kolumn zależna od szerokości.
