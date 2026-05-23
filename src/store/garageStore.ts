@@ -8,42 +8,108 @@ type FavoriteCar = {
 
 type GarageStore = {
   favorites: FavoriteCar[];
+
+  garageImageUri: string | null;
+
   loadFavorites: () => Promise<void>;
-  addFavorite: (car: FavoriteCar) => Promise<void>;
-  removeFavorite: (id: string) => Promise<void>;
-  isFavorite: (id: string) => boolean;
+
+  addFavorite: (
+    car: FavoriteCar
+  ) => Promise<void>;
+
+  removeFavorite: (
+    id: string
+  ) => Promise<void>;
+
+  setGarageImageUri: (
+    uri: string
+  ) => Promise<void>;
+
+  loadGarageImageUri: () => Promise<void>;
 };
 
-export const useGarageStore = create<GarageStore>((set, get) => ({
-  favorites: [],
+export const useGarageStore =
+  create<GarageStore>((set, get) => ({
+    favorites: [],
 
-  loadFavorites: async () => {
-    const data = await AsyncStorage.getItem('favorites');
+    garageImageUri: null,
 
-    if (data) {
-      set({ favorites: JSON.parse(data) });
-    }
-  },
+    loadFavorites: async () => {
+      const data =
+        await AsyncStorage.getItem(
+          'favorites'
+        );
 
-  addFavorite: async (car) => {
-    const exists = get().favorites.some((item) => item.id === car.id);
+      if (data) {
+        set({
+          favorites: JSON.parse(data),
+        });
+      }
+    },
 
-    if (exists) return;
+    addFavorite: async (car) => {
+      const exists =
+        get().favorites.some(
+          (item) => item.id === car.id
+        );
 
-    const updated = [...get().favorites, car];
+      if (exists) return;
 
-    set({ favorites: updated });
-    await AsyncStorage.setItem('favorites', JSON.stringify(updated));
-  },
+      const updated = [
+        ...get().favorites,
+        car,
+      ];
 
-  removeFavorite: async (id) => {
-    const updated = get().favorites.filter((item) => item.id !== id);
+      set({
+        favorites: updated,
+      });
 
-    set({ favorites: updated });
-    await AsyncStorage.setItem('favorites', JSON.stringify(updated));
-  },
+      await AsyncStorage.setItem(
+        'favorites',
+        JSON.stringify(updated)
+      );
+    },
 
-  isFavorite: (id) => {
-    return get().favorites.some((item) => item.id === id);
-  },
-}));
+    removeFavorite: async (id) => {
+      const updated =
+        get().favorites.filter(
+          (item) => item.id !== id
+        );
+
+      set({
+        favorites: updated,
+      });
+
+      await AsyncStorage.setItem(
+        'favorites',
+        JSON.stringify(updated)
+      );
+    },
+
+    setGarageImageUri: async (
+      uri
+    ) => {
+      set({
+        garageImageUri: uri,
+      });
+
+      await AsyncStorage.setItem(
+        'garageImageUri',
+        uri
+      );
+    },
+
+    loadGarageImageUri:
+      async () => {
+        const uri =
+          await AsyncStorage.getItem(
+            'garageImageUri'
+          );
+
+        if (uri) {
+          set({
+            garageImageUri: uri,
+          });
+        }
+      },
+  }));

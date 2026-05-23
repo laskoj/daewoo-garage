@@ -6,13 +6,21 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+
         tabBarActiveTintColor: '#2563eb',
+
+        tabBarStyle: {
+          height: 70,
+          paddingBottom: 10,
+          paddingTop: 10,
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Modele Daewoo',
+          title: 'Modele',
+
           tabBarIcon: ({ color, size }) => (
             <Ionicons
               name="car-sport"
@@ -27,6 +35,7 @@ export default function TabsLayout() {
         name="favorites"
         options={{
           title: 'Ulubione',
+
           tabBarIcon: ({ color, size }) => (
             <Ionicons
               name="heart"
@@ -41,6 +50,7 @@ export default function TabsLayout() {
         name="garage"
         options={{
           title: 'Garaż',
+
           tabBarIcon: ({ color, size }) => (
             <Ionicons
               name="camera"
