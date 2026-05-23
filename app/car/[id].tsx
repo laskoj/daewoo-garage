@@ -1,17 +1,19 @@
-import { useLocalSearchParams } from 'expo-router';
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { router, useLocalSearchParams } from 'expo-router';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 import { cars } from '../../constants/cars';
-import { COLORS } from '../../constants/theme';
-import { useGarageStore } from '../../src/store/garageStore';
 
 export default function CarDetailsScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-  const car = cars.find((item) => item.id === id);
+  const { id } = useLocalSearchParams();
 
-  const addFavorite = useGarageStore((state) => state.addFavorite);
-  const removeFavorite = useGarageStore((state) => state.removeFavorite);
-  const isFavorite = useGarageStore((state) => state.isFavorite);
+  const car = cars.find((item) => item.id === id);
 
   if (!car) {
     return (
@@ -21,35 +23,40 @@ export default function CarDetailsScreen() {
     );
   }
 
-  const favorite = isFavorite(car.id);
-
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Image source={{ uri: car.image }} style={styles.image} resizeMode="cover" />
+    <ScrollView style={styles.container}>
+      <Image source={car.image} style={styles.image} resizeMode="cover" />
 
-      <Text style={styles.title}>{car.name}</Text>
-      <Text style={styles.subtitle}>
-        {car.year} • {car.engine} • {car.power}
-      </Text>
-      <Text style={styles.description}>{car.description}</Text>
+      <View style={styles.content}>
+        <Pressable style={styles.backButton} onPress={() => router.back()}>
+          <Text style={styles.backText}>← Wróć</Text>
+        </Pressable>
 
-      <View style={styles.infoBox}>
-        <Text style={styles.infoTitle}>Wymagania</Text>
-        <Text style={styles.infoText}>tutaj /car/[id].</Text>
+        <Text style={styles.title}>{car.name}</Text>
+
+        <Text style={styles.subtitle}>
+          {car.year} • {car.engine} • {car.power}
+        </Text>
+
+        <Text style={styles.sectionTitle}>Opis</Text>
+        <Text style={styles.text}>{car.description}</Text>
+
+        <Text style={styles.sectionTitle}>Dane techniczne</Text>
+
+        <View style={styles.infoBox}>
+          <Text style={styles.info}>Rok produkcji: {car.year}</Text>
+          <Text style={styles.info}>Silnik: {car.engine}</Text>
+          <Text style={styles.info}>Moc: {car.power}</Text>
+          <Text style={styles.info}>Marka: Daewoo</Text>
+          <Text style={styles.info}>Typ aplikacji: katalog modeli</Text>
+        </View>
+
+        <Text style={styles.sectionTitle}>Ciekawostka</Text>
+        <Text style={styles.text}>
+          Ten model dobrze pasuje do projektu, bo można opisać jego dane,
+          historię, popularność oraz przykładowe modyfikacje.
+        </Text>
       </View>
-
-      <Pressable
-        style={styles.button}
-        onPress={() => {
-          if (favorite) {
-            removeFavorite(car.id);
-          } else {
-            addFavorite({ id: car.id, name: car.name, image: car.image });
-          }
-        }}
-      >
-        <Text style={styles.buttonText}>{favorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}</Text>
-      </Pressable>
     </ScrollView>
   );
 }
@@ -57,59 +64,71 @@ export default function CarDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.lightBackground,
+    backgroundColor: '#f3f4f6',
   },
-  content: {
-    padding: 16,
-  },
+
   center: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   image: {
     width: '100%',
-    height: 260,
-    borderRadius: 24,
-    marginBottom: 18,
+    height: 280,
+    backgroundColor: '#d1d5db',
   },
-  title: {
-    fontSize: 32,
-    fontWeight: '900',
-    color: COLORS.text,
+
+  content: {
+    padding: 20,
   },
-  subtitle: {
-    color: COLORS.muted,
-    marginTop: 6,
+
+  backButton: {
+    alignSelf: 'flex-start',
     marginBottom: 16,
   },
-  description: {
+
+  backText: {
+    fontSize: 16,
+    color: '#2563eb',
+    fontWeight: '700',
+  },
+
+  title: {
+    fontSize: 30,
+    fontWeight: '800',
+    color: '#111827',
+  },
+
+  subtitle: {
+    marginTop: 8,
+    fontSize: 16,
+    color: '#6b7280',
+  },
+
+  sectionTitle: {
+    marginTop: 24,
+    marginBottom: 8,
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#111827',
+  },
+
+  text: {
     fontSize: 16,
     lineHeight: 24,
-    color: COLORS.text,
+    color: '#374151',
   },
+
   infoBox: {
     backgroundColor: '#fff',
-    borderRadius: 18,
     padding: 16,
-    marginTop: 18,
-  },
-  infoTitle: {
-    fontWeight: '900',
-    marginBottom: 6,
-  },
-  infoText: {
-    color: COLORS.muted,
-  },
-  button: {
-    backgroundColor: COLORS.primary,
-    padding: 15,
     borderRadius: 16,
-    alignItems: 'center',
-    marginTop: 20,
   },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '800',
+
+  info: {
+    fontSize: 16,
+    marginBottom: 8,
+    color: '#374151',
   },
 });

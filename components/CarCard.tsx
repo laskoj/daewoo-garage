@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import {
   Image,
@@ -17,7 +18,10 @@ type Props = {
 
 function CarCard({ car, isFavorite, onFavorite }: Props) {
   return (
-    <View style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() => router.push(`/car/${car.id}`)}
+    >
       <Image source={car.image} style={styles.image} resizeMode="cover" />
 
       <View style={styles.content}>
@@ -30,18 +34,18 @@ function CarCard({ car, isFavorite, onFavorite }: Props) {
         <Text style={styles.description}>{car.description}</Text>
 
         <Pressable
-          style={[
-            styles.button,
-            isFavorite && styles.favoriteButton,
-          ]}
-          onPress={onFavorite}
+          style={[styles.button, isFavorite && styles.favoriteButton]}
+          onPress={(event) => {
+            event.stopPropagation();
+            onFavorite();
+          }}
         >
           <Text style={styles.buttonText}>
             {isFavorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
           </Text>
         </Pressable>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
 
   image: {
     width: '100%',
-    height: 220,
+    height: 450,
     backgroundColor: '#d1d5db',
   },
 
