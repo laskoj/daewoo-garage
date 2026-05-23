@@ -4,10 +4,10 @@ const mockCars = [
   {
     id: '1',
     name: 'Daewoo Lanos',
-    year: 1997,
-    engine: '1.5L',
-    hp: 90,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Daewoo_Lanos_front.jpg'
+    year: 1999,
+    engine: '1.6L',
+    hp: 106,
+    image: 'https://pl.wikipedia.org/wiki/Daewoo_Lanos#/media/Plik:Daewoo_Lanos_3-door_front.JPG'
   },
   {
     id: '2',
