@@ -1,5 +1,5 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { COLORS } from '../../constants/theme';
 import { useGarageStore } from '../../src/store/garageStore';
@@ -29,6 +29,7 @@ export default function GarageScreen() {
 
   return (
     <View style={styles.container}>
+      
       <Text style={styles.heading}>Mój garaż</Text>
       <Text style={styles.lead}>Dodaj zdjęcie swojego Daewoo z galerii telefonu.</Text>
 
@@ -52,9 +53,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.lightBackground,
     padding: 16,
+    paddingTop: 50,
+    alignItems: 'center',
+    
   },
   heading: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '900',
     color: COLORS.text,
   },

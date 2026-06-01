@@ -13,7 +13,7 @@ export const cars: Car[] = [
     id: '1',
     name: 'Daewoo Lanos',
     year: 1997,
-    engine: '1.4,1.5,1.6',
+    engine: '1.4, 1.5, 1.6',
     power: '75-106 KM',
     description: 'Daewoo Lanos – samochód osobowy produkowany pod marką Daewoo w latach 1997–2008, pod polską marką FSO jako FSO Lanos w latach 2004–2008.',
     image: require('../assets/images/lanos.jpg'),
