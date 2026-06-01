@@ -13,6 +13,7 @@ Aplikacja mobilna w Expo / React Native związana z garażem i modelami Daewoo.
 - responsywny układ listy przez `useWindowDimensions`,
 - FlatList zamiast ScrollView dla listy aut,
 - podstawowe testy logiki.
+- Build wykonany za pomocą EAS Build (Android Preview).
 
 ## Technologie
 

@@ -20,7 +20,10 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#111827"
       },
-      "package": "com.daewoogarage.app"
+      "package": "com.daewoogarage.app",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -38,6 +41,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "31e1881b-ac82-457b-a487-66b0953bd6c0"
+      }
+    },
+    "owner": "kzmezol"
   }
 }
