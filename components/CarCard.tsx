@@ -36,7 +36,7 @@ function CarCard({ car, isFavorite, onFavorite }: Props) {
         <Pressable
           style={[styles.button, isFavorite && styles.favoriteButton]}
           onPress={(event) => {
-            event.stopPropagation();
+            event?.stopPropagation?.();
             onFavorite();
           }}
         >
@@ -53,16 +53,24 @@ export default React.memo(CarCard);
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
-    borderRadius: 18,
-    overflow: 'hidden',
-    marginBottom: 18,
-    elevation: 4,
+  backgroundColor: '#fff',
+  borderRadius: 18,
+  overflow: 'hidden',
+  marginBottom: 18,
+  elevation: 4,
+
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 4,
   },
+  shadowOpacity: 0.1,
+  shadowRadius: 8,
+},
 
   image: {
     width: '100%',
-    height: 450,
+    height: 350,
     backgroundColor: '#d1d5db',
   },
 

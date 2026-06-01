@@ -1,0 +1,5 @@
+Projekt ustawiony pod Expo SDK 54 / Expo Router 6.
+Po rozpakowaniu uruchom:
+npm install
+npx expo start -c
+Jeśli PowerShell blokuje npm/npx, użyj npm.cmd install oraz npx.cmd expo start -c.

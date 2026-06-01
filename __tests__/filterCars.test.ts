@@ -1,5 +1,5 @@
 import { cars } from '../constants/cars';
-import { filterCars } from '../src/utils/filterCars';
+import { filterCars, sortCars } from '../src/utils/filterCars';
 
 describe('filterCars', () => {
   it('returns all cars for empty query', () => {
@@ -16,5 +16,17 @@ describe('filterCars', () => {
 
   it('returns empty array when nothing matches', () => {
     expect(filterCars(cars, 'bmw')).toHaveLength(0);
+  });
+
+  it('sorts cars alphabetically', () => {
+    expect(sortCars(cars, 'name-asc')[0].name).toBe('Daewoo Lanos');
+  });
+
+  it('sorts cars by year descending', () => {
+    expect(sortCars(cars, 'year-desc')[0].year).toBe(2001);
+  });
+
+  it('sorts cars by power descending', () => {
+    expect(sortCars(cars, 'power-desc')[0].power).toBe('133 KM');
   });
 });

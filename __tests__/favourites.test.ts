@@ -1,15 +1,15 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useGarageStore } from '../src/store/garageStore';
 
-describe('favorites', () => {
-  it('adds favorite car', () => {
-    useGarageStore.getState().addFavorite({
-      id: '1',
-      name: 'Lanos',
-      image: '',
-    });
+describe('favorites persistence', () => {
+  beforeEach(async () => {
+    await AsyncStorage.clear();
+    await useGarageStore.getState().clearFavorites();
+  });
 
-    expect(
-      useGarageStore.getState().favorites.length
-    ).toBe(1);
+  it('loads favorite cars from storage', async () => {
+    await AsyncStorage.setItem('favorites', JSON.stringify([{ id: '1', name: 'Lanos' }]));
+    await useGarageStore.getState().loadFavorites();
+    expect(useGarageStore.getState().favorites[0].name).toBe('Lanos');
   });
 });

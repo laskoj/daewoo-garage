@@ -3,7 +3,7 @@
     "name": "Daewoo Garage",
     "slug": "daewoo-garage",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "scheme": "daewoogarage",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/images/icon.png",
@@ -33,7 +33,8 @@
         {
           "photosPermission": "Aplikacja potrzebuje dostępu do galerii, aby dodać zdjęcie auta do garażu."
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
