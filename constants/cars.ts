@@ -10,7 +10,7 @@ export type Car = {
 
 export const cars: Car[] = [
   {
-    id: '1',
+     id: '1',
     name: 'Daewoo Lanos',
     year: 1997,
     engine: '1.4, 1.5, 1.6',
@@ -19,7 +19,7 @@ export const cars: Car[] = [
     image: require('../assets/images/lanos.jpg'),
   },
   {
-    id: '2',
+     id: '2',
     name: 'Daewoo Matiz',
     year: 1998,
     engine: '0.8',
@@ -27,7 +27,7 @@ export const cars: Car[] = [
     description: 'Daewoo Matiz – samochód osobowy klasy miejskiej produkowany pod marką Daewoo w latach 1998–2011.',
     image: require('../assets/images/matiz.jpg'),
   },
-  {
+   {
     id: '3',
     name: 'Daewoo Nubira',
     year: 1997,

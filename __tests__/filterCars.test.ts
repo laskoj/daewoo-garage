@@ -19,7 +19,7 @@ describe('filterCars', () => {
   });
 
   it('sorts cars alphabetically', () => {
-    expect(sortCars(cars, 'name-asc')[0].name).toBe('Daewoo Lanos');
+    expect(sortCars(cars, 'name-asc')[0].name).toBe('Daewoo Espero');
   });
 
   it('sorts cars by year descending', () => {

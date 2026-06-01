@@ -13,7 +13,9 @@ import {
 import CarCard from '../../components/CarCard';
 import { cars } from '../../constants/cars';
 import OfflineBanner from '../../src/components/OfflineBanner';
+import ThemeToggle from '../../src/components/ThemeToggle';
 import { useGarageStore } from '../../src/store/garageStore';
+import { useThemeStore } from '../../src/store/themeStore';
 import { CarSortMode, filterCars, sortCars } from '../../src/utils/filterCars';
 
 const sortOptions: { label: string; value: CarSortMode }[] = [
@@ -25,6 +27,8 @@ const sortOptions: { label: string; value: CarSortMode }[] = [
 export default function HomeScreen() {
   const [search, setSearch] = useState('');
   const [sortMode, setSortMode] = useState<CarSortMode>('name-asc');
+
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
   const { width } = useWindowDimensions();
   const columns = width > 900 ? 3 : width > 650 ? 2 : 1;
@@ -44,27 +48,39 @@ export default function HomeScreen() {
   }, [search, sortMode]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Modele Daewoo</Text>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
+      <Text style={[styles.header, isDarkMode && styles.darkHeader]}>Modele Daewoo</Text>
+      <ThemeToggle />
       <OfflineBanner />
 
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
       <TextInput
         placeholder="Szukaj auta, silnika lub mocy..."
+        placeholderTextColor={isDarkMode ? '#9ca3af' : '#6b7280'}
         value={search}
         onChangeText={setSearch}
-        style={styles.search}
+        style={[styles.search, isDarkMode && styles.darkSearch]}
       />
 
       <View style={styles.sortRow}>
         {sortOptions.map((option) => (
           <Pressable
             key={option.value}
-            style={[styles.sortButton, sortMode === option.value && styles.activeSortButton]}
+            style={[
+              styles.sortButton,
+              isDarkMode && styles.darkSortButton,
+              sortMode === option.value && styles.activeSortButton,
+            ]}
             onPress={() => setSortMode(option.value)}
           >
-            <Text style={[styles.sortText, sortMode === option.value && styles.activeSortText]}>
+            <Text
+              style={[
+                styles.sortText,
+                isDarkMode && styles.darkSortText,
+                sortMode === option.value && styles.activeSortText,
+              ]}
+            >
               {option.label}
             </Text>
           </Pressable>
@@ -81,7 +97,11 @@ export default function HomeScreen() {
         initialNumToRender={4}
         maxToRenderPerBatch={6}
         windowSize={7}
-        ListEmptyComponent={<Text style={styles.empty}>Nie znaleziono auta. Dostępne są tylko modele Daewoo.</Text>}
+        ListEmptyComponent={
+          <Text style={[styles.empty, isDarkMode && styles.darkEmpty]}>
+            Nie znaleziono auta. Dostępne są tylko modele Daewoo.
+          </Text>
+        }
         renderItem={({ item }) => {
           const isFavorite = favorites.some((car) => car.id === item.id);
 
@@ -114,20 +134,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3f4f6',
     paddingHorizontal: 16,
     paddingBottom: 16,
-    paddingTop: 50,
+    paddingTop: 70,
+  },
+  darkContainer: {
+    backgroundColor: '#111827',
   },
   header: {
     fontSize: 24,
     fontWeight: '800',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 12,
     color: '#111827',
+  },
+  darkHeader: {
+    color: '#f9fafb',
   },
   search: {
     backgroundColor: '#fff',
+    color: '#111827',
     padding: 14,
     borderRadius: 14,
     marginBottom: 12,
+  },
+  darkSearch: {
+    backgroundColor: '#1f2937',
+    color: '#f9fafb',
+    borderWidth: 1,
+    borderColor: '#374151',
   },
   sortRow: {
     flexDirection: 'row',
@@ -143,6 +176,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e5e7eb',
   },
+  darkSortButton: {
+    backgroundColor: '#1f2937',
+    borderColor: '#374151',
+  },
   activeSortButton: {
     backgroundColor: '#2563eb',
     borderColor: '#2563eb',
@@ -150,6 +187,9 @@ const styles = StyleSheet.create({
   sortText: {
     color: '#374151',
     fontWeight: '700',
+  },
+  darkSortText: {
+    color: '#d1d5db',
   },
   activeSortText: {
     color: '#fff',
@@ -165,6 +205,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 40,
     color: '#6b7280',
+  },
+  darkEmpty: {
+    color: '#9ca3af',
   },
   error: {
     backgroundColor: '#fee2e2',
