@@ -18,7 +18,7 @@ export default function CarDetailsScreen() {
   if (!car) {
     return (
       <View style={styles.center}>
-        <Text>Nie znaleziono auta.</Text>
+        <Text>Nie znaleziono auta. Dostępne są tylko modele Daewoo.</Text>
       </View>
     );
   }
@@ -48,13 +48,12 @@ export default function CarDetailsScreen() {
           <Text style={styles.info}>Silnik: {car.engine}</Text>
           <Text style={styles.info}>Moc: {car.power}</Text>
           <Text style={styles.info}>Marka: Daewoo</Text>
-          <Text style={styles.info}>Typ aplikacji: katalog modeli</Text>
+          <Text style={styles.info}>Nadwozie: Hatchback, Sedan</Text>
         </View>
 
         <Text style={styles.sectionTitle}>Ciekawostka</Text>
         <Text style={styles.text}>
-          Ten model dobrze pasuje do projektu, bo można opisać jego dane,
-          historię, popularność oraz przykładowe modyfikacje.
+          Daewoo Group (hangul: 대우, hancha: 大宇, transkrypcja poprawiona: Daeu czyt. Deu) – południowokoreański wielobranżowy koncern działający w wielu gałęziach przemysłu, m.in. w okrętownictwie, produkcji sprzętu elektronicznego, nieruchomościach, budownictwie, produkcji sprzętu budowlanego, a także w motoryzacji. Został założony w 1967 roku w Seulu. W 1999 roku koncern ogłosił bankructwo.
         </Text>
       </View>
     </ScrollView>

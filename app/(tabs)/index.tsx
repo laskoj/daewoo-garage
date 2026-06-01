@@ -81,7 +81,7 @@ export default function HomeScreen() {
         initialNumToRender={4}
         maxToRenderPerBatch={6}
         windowSize={7}
-        ListEmptyComponent={<Text style={styles.empty}>Nie znaleziono auta.</Text>}
+        ListEmptyComponent={<Text style={styles.empty}>Nie znaleziono auta. Dostępne są tylko modele Daewoo.</Text>}
         renderItem={({ item }) => {
           const isFavorite = favorites.some((car) => car.id === item.id);
 

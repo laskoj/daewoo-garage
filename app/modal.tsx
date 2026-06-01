@@ -4,7 +4,7 @@ export default function ModalScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Daewoo Garage</Text>
-      <Text>Aplikacja zaliczeniowa Expo Router + Zustand + AsyncStorage + Image Picker.</Text>
+      <Text>Aplikacja Expo Router + Zustand + AsyncStorage + Image Picker.</Text>
     </View>
   );
 }
