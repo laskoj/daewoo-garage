@@ -21,7 +21,7 @@ export const cars: Car[] = [
   {
      id: '2',
     name: 'Daewoo Matiz',
-    year: 1998,
+    year: 2001,
     engine: '0.8',
     power: '52 KM',
     description: 'Daewoo Matiz – samochód osobowy klasy miejskiej produkowany pod marką Daewoo w latach 1998–2011.',
