@@ -98,13 +98,13 @@ eas build --platform android --profile preview
 ```
 
 ## Struktura projektu
-app/                - ekrany aplikacji i routing Expo Router
-components/         - komponenty wielokrotnego użytku
-constants/          - dane modeli Daewoo
-src/store/          - Zustand Store
-src/utils/          - filtrowanie i sortowanie
-__tests__/          - testy jednostkowe
-assets/             - obrazy i ikony
+- app/                - ekrany aplikacji i routing Expo Router
+- components/         - komponenty wielokrotnego użytku
+- constants/          - dane modeli Daewoo
+- src/store/          - Zustand Store
+- src/utils/          - filtrowanie i sortowanie
+- __tests__/          - testy jednostkowe
+- assets/             - obrazy i ikony
 
 
 ## Co pokazuje projekt względem wymagań
