@@ -19,6 +19,7 @@ Aplikacja mobilna w Expo / React Native związana z garażem i modelami Daewoo.
 ### Ciemny motyw
 ![Ciemny motyw](screenshots/darkmode.png)
 
+
 ## Funkcje
 
 - katalog modeli Daewoo,
