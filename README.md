@@ -3,11 +3,21 @@
 Aplikacja mobilna w Expo / React Native związana z garażem i modelami Daewoo.
 
 ## Screenshoty
-screenshots/home.png
-screenshots/details.png
-screenshots/favorites.png
-screenshots/garage.png
-screenshots/darkmode.png
+
+### Ekran główny
+![Ekran główny](screenshots/home.png)
+
+### Szczegóły modelu
+![Szczegóły modelu](screenshots/details.png)
+
+### Ulubione
+![Ulubione](screenshots/favorites.png)
+
+### Garaż
+![Garaż](screenshots/garage.png)
+
+### Ciemny motyw
+![Ciemny motyw](screenshots/darkmode.png)
 
 ## Funkcje
 
@@ -64,7 +74,7 @@ W terminalu wyświetla się kod QR.
 ```
 
 
-W przeglądarce:
+## W przeglądarce:
 ```bash
 npx expo start --web
 ```
