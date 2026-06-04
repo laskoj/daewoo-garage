@@ -5,19 +5,19 @@ Aplikacja mobilna w Expo / React Native związana z garażem i modelami Daewoo.
 ## Screenshoty
 
 ### Ekran główny
-![Ekran główny](screenshots/home.png)
+![Ekran główny](screenshots/home.PNG)
 
 ### Szczegóły modelu
-![Szczegóły modelu](screenshots/details.png)
+![Szczegóły modelu](screenshots/details.PNG)
 
 ### Ulubione
-![Ulubione](screenshots/favorites.png)
+![Ulubione](screenshots/favorites.PNG)
 
 ### Garaż
-![Garaż](screenshots/garage.png)
+![Garaż](screenshots/garage.PNG)
 
 ### Ciemny motyw
-![Ciemny motyw](screenshots/darkmode.png)
+![Ciemny motyw](screenshots/darkmode.PNG)
 
 
 ## Funkcje
